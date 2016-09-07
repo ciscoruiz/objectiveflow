@@ -1,0 +1,9 @@
+module objectiveflow {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:objectiveflow";
+    prefix "objectiveflow";
+
+    revision "2015-01-05" {
+        description "Initial revision of objectiveflow model";
+    }
+}
