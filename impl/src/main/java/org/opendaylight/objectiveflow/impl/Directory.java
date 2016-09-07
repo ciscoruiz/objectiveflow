@@ -22,7 +22,7 @@ public class Directory {
     public Directory() {
     }
 
-    public Table createTable(String tableName, String creatorClassName) {
+    public Table createTable(String tableName, Class<?> creatorClassName) {
         Table result = nameDirectory.get(tableName);
 
         if (result != null) {
@@ -51,7 +51,7 @@ public class Directory {
         return result;
     }
 
-    public Table createTable(String tableName, short idTable, String creatorClassName) {
+    public Table createTable(String tableName, short idTable, Class<?> creatorClassName) {
         Table result = findTableWithId(tableName,idTable);
 
         if (result != null) {
@@ -95,11 +95,11 @@ public class Directory {
         return result;
     }
 
-    Table newTable(String tableName, short idTable, String creatorClassName) {
+    Table newTable(String tableName, short idTable, Class<?> creatorClassName) {
         Table result;
-        nameDirectory.put(tableName, result = new Table(tableName, idTable, creatorClassName));
+        nameDirectory.put(tableName, result = new Table(tableName, idTable, creatorClassName.getName()));
         ids.put(idTable, tableName);
-        LOG.debug("Table '{}' registered by caller '{}'", tableName, creatorClassName);
+        LOG.debug("Table '{}' registered by caller '{}'", tableName, creatorClassName.getName());
         return result;
     }
 
