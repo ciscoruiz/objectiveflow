@@ -12,8 +12,8 @@ package org.opendaylight.objectiveflow.impl;
  * @see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation
  */
 public class CidrNotation {
-    int ipPrefix;
-    short mask;
+    private int ipPrefix;
+    private short mask;
 
     public CidrNotation(int ipv4Prefix, short mask) {
         this.ipPrefix = ipv4Prefix;
@@ -43,7 +43,7 @@ public class CidrNotation {
 
         // See http://stackoverflow.com/questions/1957637/java-convert-int-to-inetaddress
         int ip = ipPrefix;
-        String ipStr = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff),  (ip >> 16 & 0xff), (ip >> 24 & 0xff));
+        String ipStr = String.format("%d.%d.%d.%d", (ip >> 24 & 0xff), (ip >> 16 & 0xff), (ip >> 8 & 0xff), (ip & 0xff));
         StringBuffer sb = new StringBuffer(ipStr);
         sb.append('/').append(mask);
         return sb.toString();
