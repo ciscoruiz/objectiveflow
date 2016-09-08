@@ -18,7 +18,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 public class PushPbb extends AbstractAction {
     @Override
     Action createAction() {
-        PushPbbAction action = new PushPbbActionBuilder().setEthernetType(EthernetType.ProviderBackboneBridges).build();
+        PushPbbAction action = new PushPbbActionBuilder().setEthernetType(EthernetType.ProviderBackboneBridges.getValue()).build();
         return new PushPbbActionCaseBuilder().setPushPbbAction(action).build();
     }
 

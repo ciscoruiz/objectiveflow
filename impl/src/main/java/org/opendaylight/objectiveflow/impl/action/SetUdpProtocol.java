@@ -16,7 +16,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 public class SetUdpProtocol extends AbstractSetField {
     @Override
     SetFieldBuilder createFieldBuilder() {
-        return new SetFieldBuilder().setIpMatch(new IpMatchBuilder().setIpProtocol(IpProtocolType.UDP).build());
+        return new SetFieldBuilder().setIpMatch(new IpMatchBuilder().setIpProtocol(IpProtocolType.UDP.getValue()).build());
     }
 
     @Override

@@ -31,7 +31,6 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
 
         checkArgument("id", getId());
         checkArgument("table", getTable());
-        checkArgument("table_id", getTable().getId());
 
         builder.setFlowName(getName());
         builder.setKey(new FlowKey(new FlowId(getId())));
@@ -42,7 +41,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setCookie(new FlowCookie(getCookie()));
 
         setMatches(builder);
-        setInstruction(builder);
+        setInstructions(builder);
         setFlags(builder);
 
         return builder.build();
@@ -63,7 +62,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setMatch(matchBuilder.build());
     }
 
-    void setInstruction(FlowBuilder builder) {
+    void setInstructions(FlowBuilder builder) {
         final InstructionsBuilder instructionsBuilder = new InstructionsBuilder();
         ArrayList<Instruction> odlInstructions = new ArrayList<>();
         int key = 0;

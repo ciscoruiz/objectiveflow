@@ -18,7 +18,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 public class PushVlan extends AbstractAction {
     @Override
     Action createAction() {
-        PushVlanAction action = new PushVlanActionBuilder().setEthernetType(EthernetType.VlanTaggedFrame).build();
+        PushVlanAction action = new PushVlanActionBuilder().setEthernetType(EthernetType.VlanTaggedFrame.getValue()).build();
         return new PushVlanActionCaseBuilder().setPushVlanAction(action).build();
     }
 

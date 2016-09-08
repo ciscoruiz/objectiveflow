@@ -18,7 +18,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 public class PushMpls extends AbstractAction {
     @Override
     Action createAction() {
-        PushMplsAction action = new PushMplsActionBuilder().setEthernetType(EthernetType.Multicast).build();
+        PushMplsAction action = new PushMplsActionBuilder().setEthernetType(EthernetType.Multicast.getValue()).build();
         return new PushMplsActionCaseBuilder().setPushMplsAction(action).build();
     }
 

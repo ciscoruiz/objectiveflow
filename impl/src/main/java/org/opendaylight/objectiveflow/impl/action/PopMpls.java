@@ -18,7 +18,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 public class PopMpls extends AbstractAction {
     @Override
     Action createAction() {
-        PopMplsAction action = new PopMplsActionBuilder().setEthernetType(EthernetType.IPV4).build();
+        PopMplsAction action = new PopMplsActionBuilder().setEthernetType(EthernetType.IPV4.getValue()).build();
         return new PopMplsActionCaseBuilder().setPopMplsAction(action).build();
     }
 

@@ -15,16 +15,16 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.EthernetMatchBuilder;
 
 public class EthernetType implements Match {
-    private int ethernetType;
+    private org.opendaylight.objectiveflow.api.EthernetType ethernetType;
 
-    public EthernetType(int ethernetType) {
+    public EthernetType(org.opendaylight.objectiveflow.api.EthernetType ethernetType) {
         this.ethernetType = ethernetType;
     }
 
     @Override
     public void setup(MatchBuilder matchBuilder) {
         final EthernetMatchBuilder builder = new EthernetMatchBuilder();
-        builder.setEthernetType(new EthernetTypeBuilder().setType(new EtherType((long) ethernetType)).build());
+        builder.setEthernetType(new EthernetTypeBuilder().setType(new EtherType((long) ethernetType.getValue())).build());
         matchBuilder.setEthernetMatch(builder.build());
     }
 }

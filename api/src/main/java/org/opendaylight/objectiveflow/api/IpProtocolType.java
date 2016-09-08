@@ -11,6 +11,12 @@ package org.opendaylight.objectiveflow.api;
 /**
  * @see https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers
  */
-public class IpProtocolType {
-    static public final short UDP = 17;
+public enum IpProtocolType {
+    TCP ((short) 0x06), UDP ((short) 0x11);
+
+    private short value;
+
+    IpProtocolType(short value) { this.value = value; }
+
+    public short getValue() { return value; }
 }

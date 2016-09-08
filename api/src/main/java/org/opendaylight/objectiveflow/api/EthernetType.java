@@ -11,10 +11,13 @@ package org.opendaylight.objectiveflow.api;
 /**
  * @see: https://en.wikipedia.org/wiki/EtherType
  */
-public final class EthernetType {
-    public static final int IPV4 = 0X0800;
-    public static final int Multicast = 0X8847;
-    public static final int ProviderBackboneBridges = 0X88E7;
-    public static final int VlanTaggedFrame = 0x8100;
+public enum EthernetType {
+    IPV4(0x0800), Multicast(0x8847), ProviderBackboneBridges(0x88e7), VlanTaggedFrame(0x8100);
+
+    private int value;
+
+    EthernetType(int value) { this.value = value; }
+
+    public int getValue() { return value; }
 }
 

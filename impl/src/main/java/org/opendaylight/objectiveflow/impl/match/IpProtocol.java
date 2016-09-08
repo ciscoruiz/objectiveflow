@@ -9,20 +9,21 @@
 package org.opendaylight.objectiveflow.impl.match;
 
 import org.opendaylight.objectiveflow.api.Match;
+import org.opendaylight.objectiveflow.api.IpProtocolType;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.MatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.IpMatchBuilder;
 
 public class IpProtocol implements Match {
-    private short protocolType;
+    private IpProtocolType protocolType;
 
-    public IpProtocol(short protocolType) {
+    public IpProtocol(IpProtocolType protocolType) {
         this.protocolType = protocolType;
     }
 
     @Override
     public void setup(MatchBuilder matchBuilder) {
         final IpMatchBuilder builder = new IpMatchBuilder();
-        builder.setIpProtocol(protocolType);
+        builder.setIpProtocol(protocolType.getValue());
         matchBuilder.setIpMatch(builder.build());
     }
 }

@@ -15,15 +15,15 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.EthernetMatchBuilder;
 
 public class EthernetDestination implements Match {
-    private MacAddress macAddress;
+    private String macAddress;
 
-    public EthernetDestination(MacAddress macAddress) {
+    public EthernetDestination(String macAddress) {
         this.macAddress = macAddress;
     }
     @Override
     public void setup(MatchBuilder matchBuilder) {
         final EthernetMatchBuilder builder = new EthernetMatchBuilder();
-        builder.setEthernetDestination(new EthernetDestinationBuilder().setAddress(macAddress).build());
+        builder.setEthernetDestination(new EthernetDestinationBuilder().setAddress(new MacAddress(macAddress)).build());
         matchBuilder.setEthernetMatch(builder.build());
     }
 }
