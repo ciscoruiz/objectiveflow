@@ -15,18 +15,18 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 import java.math.BigInteger;
 
 public class Metadata implements Match {
-    BigInteger values[];
+    BigInteger value;
+    BigInteger mask;
 
-    public Metadata(BigInteger[] values) {
-        this.values = values;
+    public Metadata(BigInteger value, BigInteger mask) {
+        this.value = value;
+        this.mask = mask;
     }
 
     @Override
     public void setup(MatchBuilder matchBuilder) {
         final MetadataBuilder builder = new MetadataBuilder();
-        for (BigInteger value : values) {
-            builder.setMetadata(value);
-        }
+        builder.setMetadata(value).setMetadataMask(mask);
         matchBuilder.setMetadata(builder.build());
     }
 }
