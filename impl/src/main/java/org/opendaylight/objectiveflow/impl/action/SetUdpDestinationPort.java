@@ -16,7 +16,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 public class SetUdpDestinationPort extends AbstractSetField {
     private PortNumber port;
 
-    public SetUdpDestinationPort(Integer port) {
+    public SetUdpDestinationPort(int port) {
         this.port = new PortNumber(port);
     }
 

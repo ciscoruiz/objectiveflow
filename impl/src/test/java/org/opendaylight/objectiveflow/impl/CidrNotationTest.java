@@ -48,6 +48,18 @@ public class CidrNotationTest {
         assertEquals("0.0.0.0/0", cidrNotation.getIpv4Address());
     }
 
+    @Test
+    public void initWithAddress() throws Exception {
+        CidrNotation cidrNotation = new CidrNotation("192.168.10.1", (short) 10);
+        assertEquals("192.168.10.1/10", cidrNotation.getIpv4Address());
+
+        cidrNotation = new CidrNotation("255.255.0.192", (short) 9);
+        assertEquals("255.255.0.192/9", cidrNotation.getIpv4Address());
+
+        cidrNotation = new CidrNotation("0.0.0.0", (short) 0);
+        assertEquals("0.0.0.0/0", cidrNotation.getIpv4Address());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void failIpv4Address() throws Exception {
         CidrNotation cidrNotation = new CidrNotation(0xff00ff00, (short) 33);

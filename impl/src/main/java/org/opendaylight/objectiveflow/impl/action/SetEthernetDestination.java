@@ -16,15 +16,15 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 
 
 public class SetEthernetDestination extends AbstractSetField {
-    private MacAddress macAddress;
+    private String macAddress;
 
-    public SetEthernetDestination(MacAddress macAddress) {
+    public SetEthernetDestination(String macAddress) {
         this.macAddress = macAddress;
     }
 
     @Override
     SetFieldBuilder createFieldBuilder() {
-        EthernetDestination ethernetDestination = new EthernetDestinationBuilder().setAddress(macAddress).build();
+        EthernetDestination ethernetDestination = new EthernetDestinationBuilder().setAddress(new MacAddress(macAddress)).build();
         return new SetFieldBuilder().setEthernetMatch(new EthernetMatchBuilder().setEthernetDestination(ethernetDestination).build());
     }
 

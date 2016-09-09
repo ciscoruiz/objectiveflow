@@ -8,6 +8,10 @@
 
 package org.opendaylight.objectiveflow.impl;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @see https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation
  */
@@ -18,6 +22,32 @@ public class CidrNotation {
     public CidrNotation(int ipv4Prefix, short mask) {
         this.ipPrefix = ipv4Prefix;
         this.mask = mask;
+    }
+
+    public CidrNotation(String ipv4Prefix, short mask) {
+        InetAddress inetAddress = null;
+        try {
+            inetAddress = Inet4Address.getByName(ipv4Prefix);
+        } catch (UnknownHostException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        final byte[] address = inetAddress.getAddress();
+
+        if (address.length != 4)
+            throw new IllegalArgumentException(ipv4Prefix);
+
+        this.ipPrefix =  (address[0] << 24) & 0xff000000;
+        this.ipPrefix |= (address[1] << 16) & 0x00ff0000;
+        this.ipPrefix |= (address[2] <<  8) & 0x0000ff00;
+        this.ipPrefix |= (address[3]      ) & 0x000000ff;
+        this.mask = mask;
+    }
+
+    static private int asInt(byte address[], int index, int shift) {
+        int result = (int) address[index];
+        result <<= shift;
+        return result;
     }
 
     public int getIpPrefix() {
