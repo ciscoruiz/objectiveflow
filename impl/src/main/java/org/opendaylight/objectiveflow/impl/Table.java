@@ -18,10 +18,6 @@ public class Table implements org.opendaylight.objectiveflow.api.Table {
         this.creatorClassName = creatorClassName;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public short getId() {
         return id;
     }
@@ -30,10 +26,11 @@ public class Table implements org.opendaylight.objectiveflow.api.Table {
 
     @Override
     public String toString() {
-        return "Table{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", creatorClassName='" + creatorClassName + '\'' +
-                '}';
+        final StringBuffer sb = new StringBuffer("Table{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", id=").append(id);
+        sb.append(", creatorClassName='").append(creatorClassName).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

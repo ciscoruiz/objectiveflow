@@ -7,8 +7,6 @@
  */
 package org.opendaylight.objectiveflow.api;
 
-import java.util.List;
-
 public interface Instruction {
     Instruction append(Action value);
     org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.Instruction build(int key);

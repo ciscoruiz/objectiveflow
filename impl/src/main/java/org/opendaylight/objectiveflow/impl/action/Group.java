@@ -15,22 +15,23 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 
 
 public class Group extends AbstractAction {
-    private long groupId;
+    private org.opendaylight.objectiveflow.api.Group group;
 
-    public Group(long groupId) {
-        this.groupId = groupId;
+    public Group(org.opendaylight.objectiveflow.api.Group group) {
+        this.group = group;
     }
 
     @Override
     Action createAction() {
-        GroupAction action = new GroupActionBuilder().setGroupId(groupId).build();
+        GroupAction action = new GroupActionBuilder().setGroupId((long) group.getId()).build();
         return new GroupActionCaseBuilder().setGroupAction(action).build();
     }
 
     @Override
     public String toString() {
-        return "Group{" +
-                "groupId=" + groupId +
-                '}';
+        final StringBuffer sb = new StringBuffer("Group{");
+        sb.append("group=").append(group);
+        sb.append('}');
+        return sb.toString();
     }
 }

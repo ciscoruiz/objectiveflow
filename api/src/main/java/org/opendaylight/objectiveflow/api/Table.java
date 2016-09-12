@@ -8,7 +8,6 @@
 package org.opendaylight.objectiveflow.api;
 
 public interface Table {
-    String getName ();
     short getId();
     String toString();
 }

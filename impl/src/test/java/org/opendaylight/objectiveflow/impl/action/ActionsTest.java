@@ -14,8 +14,8 @@ import org.opendaylight.objectiveflow.api.EthernetType;
 import org.opendaylight.objectiveflow.api.IpProtocolType;
 import org.opendaylight.objectiveflow.impl.CidrNotation;
 import org.opendaylight.objectiveflow.impl.Directory;
+import org.opendaylight.objectiveflow.impl.GroupDirectory;
 import org.opendaylight.objectiveflow.impl.Table;
-import org.opendaylight.objectiveflow.impl.match.IpProtocol;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.action.action.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.action.list.Action;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.OutputPortValues;
@@ -27,7 +27,6 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.nicira.action.rev140714.add.group.input.buckets.bucket.action.action.NxActionResubmitRpcAddGroupCase;
 
 import java.math.BigInteger;
-import java.net.InetAddress;
 
 import static org.junit.Assert.*;
 
@@ -57,8 +56,9 @@ public class ActionsTest {
 
     @Test
     public void testGroup() throws Exception {
-        final Group action = new Group(100);
-
+        GroupDirectory groupDirectory = new GroupDirectory();
+        org.opendaylight.objectiveflow.impl.Group mygroup = groupDirectory.createGroup("mygroup", 100, org.opendaylight.objectiveflow.api.Group.Type.All, this.getClass());
+        final Group action = new Group(mygroup);
         final Action build = action.build(0);
         final GroupActionCase actionCase = (GroupActionCase) build.getAction();
         assertEquals(100, actionCase.getGroupAction().getGroupId().intValue());

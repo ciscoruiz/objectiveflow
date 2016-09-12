@@ -16,21 +16,21 @@ import org.slf4j.LoggerFactory;
 public class Directory {
     private static final Logger LOG = LoggerFactory.getLogger(Directory.class);
 
-    private HashMap<String, Table> nameDirectory = new HashMap<String,Table>();
+    private HashMap<String, Table> names = new HashMap<String,Table>();
     private HashMap<Short, String> ids = new HashMap<Short, String>();
 
     public Directory() {
     }
 
     public Table createTable(String tableName, Class<?> creatorClassName) {
-        Table result = nameDirectory.get(tableName);
+        Table result = names.get(tableName);
 
         if (result != null) {
             return result;
         }
 
-        synchronized (nameDirectory) {
-            result = nameDirectory.get(tableName);
+        synchronized (names) {
+            result = names.get(tableName);
 
             if (result != null) {
                 LOG.warn("Current Caller='{}'. Table '{}' already registered by caller '{}'",
@@ -58,7 +58,7 @@ public class Directory {
             return result;
         }
 
-        synchronized (nameDirectory) {
+        synchronized (names) {
             result = findTableWithId(tableName,idTable);
 
             if (result != null) {
@@ -77,7 +77,7 @@ public class Directory {
     }
 
     public Table getTable(String tableName) {
-        Table result = nameDirectory.get(tableName);
+        Table result = names.get(tableName);
 
         if (result == null)
             throw new IllegalArgumentException("Table '" + tableName + "' was not registered");
@@ -86,7 +86,7 @@ public class Directory {
     }
 
     Table findTableWithId(String tableName, short idTable) {
-        Table result = nameDirectory.get(tableName);
+        Table result = names.get(tableName);
 
         if (result != null && result.getId() != idTable) {
             throw new IllegalArgumentException("Table " + result.toString() + " was defined with different ID='" + idTable + "'");
@@ -97,7 +97,7 @@ public class Directory {
 
     Table newTable(String tableName, short idTable, Class<?> creatorClassName) {
         Table result;
-        nameDirectory.put(tableName, result = new Table(tableName, idTable, creatorClassName.getName()));
+        names.put(tableName, result = new Table(tableName, idTable, creatorClassName.getName()));
         ids.put(idTable, tableName);
         LOG.debug("Table '{}' registered by caller '{}'", tableName, creatorClassName.getName());
         return result;
