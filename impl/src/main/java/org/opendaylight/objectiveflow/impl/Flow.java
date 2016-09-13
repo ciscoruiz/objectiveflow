@@ -8,7 +8,7 @@
 
 package org.opendaylight.objectiveflow.impl;
 
-import org.opendaylight.objectiveflow.api.Match;
+import org.opendaylight.objectiveflow.api.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.FlowId;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.FlowBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.FlowKey;
@@ -21,8 +21,8 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.M
 import java.util.ArrayList;
 
 public class Flow extends org.opendaylight.objectiveflow.api.Flow {
-    public Flow(String name) {
-        super(name);
+    public Flow(String name, org.opendaylight.objectiveflow.api.Table table) {
+        super(name, table);
     }
 
     @Override
@@ -47,14 +47,14 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         return builder.build();
     }
 
-    void checkArgument(String whatIs, Object object) {
+    private void checkArgument(String whatIs, Object object) {
         if (object == null) {
             final StringBuffer sb = new StringBuffer("Flow=").append(getName()).append(" member=").append(whatIs).append(" can not be null");
             throw new IllegalArgumentException(sb.toString());
         }
     }
 
-    void setMatches(FlowBuilder builder) {
+    private void setMatches(FlowBuilder builder) {
         final MatchBuilder matchBuilder = new MatchBuilder();
         for (Match match : getMatches()) {
             match.setup(matchBuilder);
@@ -62,7 +62,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setMatch(matchBuilder.build());
     }
 
-    void setInstructions(FlowBuilder builder) {
+    private void setInstructions(FlowBuilder builder) {
         final InstructionsBuilder instructionsBuilder = new InstructionsBuilder();
         ArrayList<Instruction> odlInstructions = new ArrayList<>();
         int key = 0;
@@ -73,7 +73,8 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setInstructions(instructionsBuilder.setInstruction(odlInstructions).build());
     }
 
-    void setFlags(FlowBuilder builder) {
+    private void setFlags(FlowBuilder builder) {
+        builder.setInstallHw(getFlag(Flag.InstallHardware));
         builder.setStrict(getFlag(Flag.IsStrict));
         builder.setBarrier(getFlag(Flag.IsBarrier));
         final FlowModFlags modFlags = new FlowModFlags(getFlag(Flag.CheckOverlap), getFlag(Flag.NoBytsCounts), getFlag(Flag.NopktCounts), getFlag(Flag.ResetCounts), getFlag(Flag.SendFlowRem));

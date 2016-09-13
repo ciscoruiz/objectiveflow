@@ -28,13 +28,13 @@ public abstract class Flow {
     public enum Flag {
         IsStrict(0),
         IsBarrier(1),
-        InstallHardware(3),
-        Resync(4),
-        CheckOverlap(5),
-        NoBytsCounts(6),
-        NopktCounts(7),
-        ResetCounts(8),
-        SendFlowRem(9);
+        InstallHardware(2),
+        Resync(3),
+        CheckOverlap(4),
+        NoBytsCounts(5),
+        NopktCounts(6),
+        ResetCounts(7),
+        SendFlowRem(8);
 
         int nbit;
 
@@ -47,8 +47,9 @@ public abstract class Flow {
         }
     }
 
-    public Flow(String name) {
+    public Flow(String name, Table table) {
         this.name = name;
+        this.table = table;
         this.cookie = BigInteger.valueOf(0);
         this.matches = new ArrayList<>();
         this.instructions = new ArrayList<>();
@@ -73,11 +74,6 @@ public abstract class Flow {
 
     public Table getTable() {
         return table;
-    }
-
-    public Flow setTable(Table table) {
-        this.table = table;
-        return this;
     }
 
     public int getPriority() {
@@ -116,17 +112,17 @@ public abstract class Flow {
         return this;
     }
 
-    public Flow append(Match match) {
+    public Flow addMatch(Match match) {
         matches.add(match);
         return this;
     }
 
-    public Flow append(Instruction instruction) {
+    public Flow addInstruction(Instruction instruction) {
         instructions.add(instruction);
         return this;
     }
 
-    public Flow append(Counter counter) {
+    public Flow addCounter(Counter counter) {
         counters.add(counter);
         return this;
     }
