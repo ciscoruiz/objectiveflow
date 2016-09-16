@@ -77,7 +77,7 @@ public class Bucket implements org.opendaylight.objectiveflow.api.Bucket {
         List<Action> ofActions = new ArrayList<>();
         int actionKey = 0;
         for (org.opendaylight.objectiveflow.api.Action action : actions) {
-            LOG.debug("Action=" + action.toString());
+            LOG.debug("Action={}", action);
             ofActions.add(action.build(actionKey ++));
         }
 

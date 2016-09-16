@@ -39,7 +39,7 @@ public abstract class InstructionWithActions implements org.opendaylight.objecti
         int actionKey = 0;
         ArrayList<Action> rawActions = new ArrayList<>();
         for (org.opendaylight.objectiveflow.api.Action action: actions) {
-            LOG.debug("Action=" + action.toString());
+            LOG.debug("Action={}", action);
             rawActions.add(action.build(actionKey++));
         }
         

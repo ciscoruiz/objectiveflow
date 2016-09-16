@@ -62,7 +62,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
     private void setMatches(FlowBuilder builder) {
         final MatchBuilder matchBuilder = new MatchBuilder();
         for (Match match : getMatches()) {
-            LOG.debug("Match=" + match.toString());
+            LOG.debug("Match={}", match);
             match.setup(matchBuilder);
         }
         builder.setMatch(matchBuilder.build());
@@ -73,7 +73,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         ArrayList<Instruction> odlInstructions = new ArrayList<>();
         int key = 0;
         for (org.opendaylight.objectiveflow.api.Instruction instruction : getInstructions()) {
-            LOG.debug("Instruction=" + instruction.toString());
+            LOG.debug("Instruction={}", instruction);
             final Instruction odlInstruction = instruction.build(key++);
             odlInstructions.add(odlInstruction);
         }

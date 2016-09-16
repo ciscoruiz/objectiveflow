@@ -62,7 +62,7 @@ public class Group implements org.opendaylight.objectiveflow.api.Group {
         List<org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.group.buckets.Bucket> ofBuckets = new ArrayList<>();
         int key = 0;
         for (Bucket bucket : buckets) {
-            LOG.debug("Bucket=" + bucket.toString());
+            LOG.debug("Bucket={}", bucket);
             ofBuckets.add(bucket.build(key ++));
         }
         builder.setBuckets(new BucketsBuilder().setBucket(ofBuckets).build());
