@@ -6,7 +6,7 @@
  *   and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.opendaylight.objectiveflow.impl.action;
+package org.opendaylight.objectiveflow.impl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import org.opendaylight.objectiveflow.impl.CidrNotation;
 import org.opendaylight.objectiveflow.impl.Directory;
 import org.opendaylight.objectiveflow.impl.GroupDirectory;
 import org.opendaylight.objectiveflow.impl.Table;
+import org.opendaylight.objectiveflow.impl.action.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.action.action.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.action.list.Action;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.OutputPortValues;
@@ -58,7 +59,7 @@ public class ActionsTest {
     public void testGroup() throws Exception {
         GroupDirectory groupDirectory = new GroupDirectory();
         org.opendaylight.objectiveflow.impl.Group mygroup = groupDirectory.createGroup("mygroup", 100, org.opendaylight.objectiveflow.api.Group.Type.All, this.getClass());
-        final Group action = new Group(mygroup);
+        final org.opendaylight.objectiveflow.impl.action.Group action = new org.opendaylight.objectiveflow.impl.action.Group(mygroup);
         final Action build = action.build(0);
         final GroupActionCase actionCase = (GroupActionCase) build.getAction();
         assertEquals(100, actionCase.getGroupAction().getGroupId().intValue());

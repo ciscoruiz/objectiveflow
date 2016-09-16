@@ -6,12 +6,13 @@
  *   and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.opendaylight.objectiveflow.impl.match;
+package org.opendaylight.objectiveflow.impl;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.opendaylight.objectiveflow.api.IpProtocolType;
 import org.opendaylight.objectiveflow.impl.CidrNotation;
+import org.opendaylight.objectiveflow.impl.match.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.Match;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.MatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.EthernetMatch;
