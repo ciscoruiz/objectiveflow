@@ -11,22 +11,17 @@ package org.opendaylight.objectiveflow.impl;
 import org.junit.Before;
 import org.junit.Test;
 import org.opendaylight.objectiveflow.api.IpProtocolType;
-import org.opendaylight.objectiveflow.impl.CidrNotation;
 import org.opendaylight.objectiveflow.impl.match.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.Match;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.MatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.EthernetMatch;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.IpMatch;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.ProtocolMatchFields;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.VlanMatch;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._3.match.ArpMatch;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._3.match.ArpMatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._3.match.Ipv4Match;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._4.match.TcpMatch;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._4.match.UdpMatch;
-import org.opendaylight.yangtools.yang.binding.DataContainer;
 
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 
 import static org.junit.Assert.*;
@@ -42,7 +37,7 @@ public class MatchesTest {
 
     @Test
     public void testArpOp() throws Exception {
-        ArpOp op = new ArpOp(22);
+        org.opendaylight.objectiveflow.api.Match op = new ArpOp(22);
         op.setup(matchBuilder);
         ArpMatch match = (ArpMatch) matchBuilder.build().getLayer3Match();
         assertEquals(Integer.valueOf(22), match.getArpOp());
@@ -51,7 +46,7 @@ public class MatchesTest {
     @Test
     public void testArpSourceTransportAddress() throws Exception {
         CidrNotation cidr = new CidrNotation(0x1f000000, (short) 32);
-        ArpSourceTransportAddress op = new ArpSourceTransportAddress(cidr);
+        org.opendaylight.objectiveflow.api.Match op = new ArpSourceTransportAddress(cidr);
         op.setup(matchBuilder);
 
         ArpMatch match = (ArpMatch) matchBuilder.build().getLayer3Match();
@@ -62,7 +57,7 @@ public class MatchesTest {
     @Test
     public void testArpTargetTransportAddress() throws Exception {
         CidrNotation cidr = new CidrNotation(0x1f000001, (short) 32);
-        ArpTargetTransportAddress op = new ArpTargetTransportAddress(cidr);
+        org.opendaylight.objectiveflow.api.Match op = new ArpTargetTransportAddress(cidr);
         op.setup(matchBuilder);
 
         ArpMatch match = (ArpMatch) matchBuilder.build().getLayer3Match();
@@ -71,7 +66,7 @@ public class MatchesTest {
 
     @Test
     public void testEthernetDestination() throws Exception {
-        final EthernetDestination op = new EthernetDestination("00:00:00:01:02:03");
+        final org.opendaylight.objectiveflow.api.Match op = new EthernetDestination("00:00:00:01:02:03");
         op.setup(matchBuilder);
         EthernetMatch match = (EthernetMatch) matchBuilder.build().getEthernetMatch();
         assertEquals("00:00:00:01:02:03", match.getEthernetDestination().getAddress().getValue());
@@ -79,14 +74,14 @@ public class MatchesTest {
 
     @Test
     public void testEthernetSource() throws Exception {
-        final EthernetSource op = new EthernetSource("e6:00:00:01:02:03");
+        final org.opendaylight.objectiveflow.api.Match op = new EthernetSource("e6:00:00:01:02:03");
         op.setup(matchBuilder);
         EthernetMatch match = (EthernetMatch) matchBuilder.build().getEthernetMatch();
         assertEquals("e6:00:00:01:02:03", match.getEthernetSource().getAddress().getValue());
     }
     @Test
     public void testEthernetType() throws Exception {
-        EthernetType op = new EthernetType(org.opendaylight.objectiveflow.api.EthernetType.IPV4);
+        org.opendaylight.objectiveflow.api.Match op = new EthernetType(org.opendaylight.objectiveflow.api.EthernetType.IPV4);
         op.setup(matchBuilder);
         EthernetMatch match = (EthernetMatch) matchBuilder.build().getEthernetMatch();
         assertEquals(org.opendaylight.objectiveflow.api.EthernetType.IPV4.getValue(), match.getEthernetType().getType().getValue().intValue());
@@ -99,14 +94,14 @@ public class MatchesTest {
 
     @Test
     public void testInPort() throws Exception {
-        InPort op = new InPort(BigInteger.ONE, BigInteger.TEN);
+        org.opendaylight.objectiveflow.api.Match op = new InPort(BigInteger.ONE, BigInteger.TEN);
         op.setup(matchBuilder);
         assertEquals("openflow:1:10", matchBuilder.build().getInPort().getValue());
     }
 
     @Test
     public void testIpProtocol() throws Exception {
-        IpProtocol op = new IpProtocol(IpProtocolType.UDP);
+        org.opendaylight.objectiveflow.api.Match op = new IpProtocol(IpProtocolType.UDP);
         op.setup(matchBuilder);
         assertEquals (IpProtocolType.UDP.getValue(), matchBuilder.build().getIpMatch().getIpProtocol().shortValue());
     }
@@ -114,7 +109,7 @@ public class MatchesTest {
     @Test
     public void testIpv4Destination() throws Exception {
         CidrNotation cidr = new CidrNotation(0x7f000000, (short) 24);
-        Ipv4Destination op = new Ipv4Destination(cidr);
+        org.opendaylight.objectiveflow.api.Match op = new Ipv4Destination(cidr);
         op.setup(matchBuilder);
         final Ipv4Match match = (Ipv4Match) matchBuilder.build().getLayer3Match();
         assertEquals("127.0.0.0/24", match.getIpv4Destination().getValue());
@@ -123,7 +118,7 @@ public class MatchesTest {
     @Test
     public void testIpv4Source() throws Exception {
         CidrNotation cidr = new CidrNotation(0xc0a80101, (short) 0);
-        Ipv4Source op = new Ipv4Source(cidr);
+        org.opendaylight.objectiveflow.api.Match op = new Ipv4Source(cidr);
         op.setup(matchBuilder);
         final Ipv4Match match = (Ipv4Match) matchBuilder.build().getLayer3Match();
         assertEquals("192.168.1.1/0", match.getIpv4Source().getValue());
@@ -131,7 +126,7 @@ public class MatchesTest {
 
     @Test
     public void testMetadata() throws Exception {
-        Metadata op = new Metadata(BigInteger.ONE, BigInteger.TEN);
+        org.opendaylight.objectiveflow.api.Match op = new Metadata(BigInteger.ONE, BigInteger.TEN);
         op.setup(matchBuilder);
         final org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.Metadata metadata = matchBuilder.build().getMetadata();
         assertEquals(BigInteger.ONE, metadata.getMetadata());
@@ -140,7 +135,7 @@ public class MatchesTest {
 
     @Test
     public void testMplsLabel() throws Exception {
-        MplsLabel op = new MplsLabel(Long.valueOf(1024));
+        org.opendaylight.objectiveflow.api.Match op = new MplsLabel(Long.valueOf(1024));
         op.setup(matchBuilder);
         final ProtocolMatchFields match = matchBuilder.build().getProtocolMatchFields();
         assertEquals(Long.valueOf(1024), match.getMplsLabel());
@@ -148,7 +143,7 @@ public class MatchesTest {
 
     @Test
     public void testPbbIsid() throws Exception {
-        PbbIsid op = new PbbIsid(Long.valueOf(1024));
+        org.opendaylight.objectiveflow.api.Match op = new PbbIsid(Long.valueOf(1024));
         op.setup(matchBuilder);
         final ProtocolMatchFields match = matchBuilder.build().getProtocolMatchFields();
         assertEquals(Long.valueOf(1024), match.getPbb().getPbbIsid());
@@ -156,7 +151,7 @@ public class MatchesTest {
 
     @Test
     public void testTcpDestinationPort() throws Exception {
-        TcpDestinationPort op = new TcpDestinationPort(2048);
+        org.opendaylight.objectiveflow.api.Match op = new TcpDestinationPort(2048);
         op.setup(matchBuilder);
         final TcpMatch match = (TcpMatch) matchBuilder.build().getLayer4Match();
         assertEquals(2048, match.getTcpDestinationPort().getValue().intValue());
@@ -164,7 +159,7 @@ public class MatchesTest {
 
     @Test
     public void testTcpSourcePort() throws Exception {
-        TcpSourcePort op = new TcpSourcePort(4095);
+        org.opendaylight.objectiveflow.api.Match op = new TcpSourcePort(4095);
         op.setup(matchBuilder);
         final TcpMatch match = (TcpMatch) matchBuilder.build().getLayer4Match();
         assertEquals(4095, match.getTcpSourcePort().getValue().intValue());
@@ -172,7 +167,7 @@ public class MatchesTest {
 
     @Test
     public void testTunnel() throws Exception {
-        Tunnel op = new Tunnel(BigInteger.ONE, BigInteger.TEN);
+        org.opendaylight.objectiveflow.api.Match op = new Tunnel(BigInteger.ONE, BigInteger.TEN);
         op.setup(matchBuilder);
         org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.Tunnel tunnel = matchBuilder.build().getTunnel();
         assertEquals(BigInteger.ONE, tunnel.getTunnelId());
@@ -187,7 +182,7 @@ public class MatchesTest {
 
     @Test
     public void testUdpDestinationPort() throws Exception {
-        UdpDestinationPort op = new UdpDestinationPort(2048);
+        org.opendaylight.objectiveflow.api.Match op = new UdpDestinationPort(2048);
         op.setup(matchBuilder);
         final UdpMatch match = (UdpMatch) matchBuilder.build().getLayer4Match();
         assertEquals(2048, match.getUdpDestinationPort().getValue().intValue());
@@ -195,7 +190,7 @@ public class MatchesTest {
 
     @Test
     public void testUdpSourcePort() throws Exception {
-        UdpSourcePort op = new UdpSourcePort(4095);
+        org.opendaylight.objectiveflow.api.Match op = new UdpSourcePort(4095);
         op.setup(matchBuilder);
         final UdpMatch match = (UdpMatch) matchBuilder.build().getLayer4Match();
         assertEquals(4095, match.getUdpSourcePort().getValue().intValue());
@@ -203,7 +198,7 @@ public class MatchesTest {
 
     @Test
     public void testVlanId() throws Exception {
-        VlanId op = new VlanId(2323);
+        org.opendaylight.objectiveflow.api.Match op = new VlanId(2323);
         op.setup(matchBuilder);
         VlanMatch match = matchBuilder.build().getVlanMatch();
         assertEquals(2323, match.getVlanId().getVlanId().getValue().intValue());
@@ -219,11 +214,11 @@ public class MatchesTest {
     @Test
     public void testCombined() throws Exception {
         {
-            TcpDestinationPort op = new TcpDestinationPort(2048);
+            org.opendaylight.objectiveflow.api.Match op = new TcpDestinationPort(2048);
             op.setup(matchBuilder);
         }
         {
-            EthernetSource op = new EthernetSource("e6:00:00:01:02:03");
+            org.opendaylight.objectiveflow.api.Match op = new EthernetSource("e6:00:00:01:02:03");
             op.setup(matchBuilder);
         }
 

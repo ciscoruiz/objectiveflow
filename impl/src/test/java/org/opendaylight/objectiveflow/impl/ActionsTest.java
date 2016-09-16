@@ -32,7 +32,7 @@ public class ActionsTest {
 
     @Test
     public void testDrop() throws Exception {
-        final Drop action = new Drop();
+        final org.opendaylight.objectiveflow.api.Action action = new Drop();
 
         final Action build = action.build(10);
         assertEquals(10, build.getKey().getOrder().intValue());
@@ -42,7 +42,7 @@ public class ActionsTest {
 
     @Test
     public void testForwardToController() throws Exception {
-        final ForwardToController action = new ForwardToController();
+        final org.opendaylight.objectiveflow.api.Action action = new ForwardToController();
 
         final Action build = action.build(11);
         assertEquals(11, build.getKey().getOrder().intValue());
@@ -55,7 +55,7 @@ public class ActionsTest {
     public void testGroup() throws Exception {
         GroupDirectory groupDirectory = new GroupDirectory();
         org.opendaylight.objectiveflow.impl.Group mygroup = groupDirectory.createGroup("mygroup", 100, org.opendaylight.objectiveflow.api.Group.Type.All, this.getClass());
-        final org.opendaylight.objectiveflow.impl.action.Group action = new org.opendaylight.objectiveflow.impl.action.Group(mygroup);
+        final org.opendaylight.objectiveflow.api.Action action = new org.opendaylight.objectiveflow.impl.action.Group(mygroup);
         final Action build = action.build(0);
         final GroupActionCase actionCase = (GroupActionCase) build.getAction();
         assertEquals(100, actionCase.getGroupAction().getGroupId().intValue());
@@ -64,7 +64,7 @@ public class ActionsTest {
     @Test
     public void testNxResubmit() throws Exception {
         Table table = directory.createTable("mytable", this.getClass());
-        final NxResubmit action = new NxResubmit(table);
+        final org.opendaylight.objectiveflow.api.Action action = new NxResubmit(table);
 
         final Action build = action.build(0);
         final NxActionResubmitRpcAddGroupCase actionCase = (NxActionResubmitRpcAddGroupCase) build.getAction();
@@ -73,7 +73,7 @@ public class ActionsTest {
 
     @Test
     public void testOutput() throws Exception {
-        Output action = new Output("com.ericsson", 2048);
+        org.opendaylight.objectiveflow.api.Action action = new Output("com.ericsson", 2048);
 
         Action build = action.build(11);
         OutputActionCase actionCase = (OutputActionCase) build.getAction();
@@ -89,7 +89,7 @@ public class ActionsTest {
 
     @Test
     public void testPopMpls() throws Exception {
-        PopMpls action = new PopMpls();
+        org.opendaylight.objectiveflow.api.Action action = new PopMpls();
 
         Action build = action.build(11);
         final PopMplsActionCase actionCase = (PopMplsActionCase) build.getAction();
@@ -98,7 +98,7 @@ public class ActionsTest {
 
     @Test
     public void testPopPbb() throws Exception {
-        final PopPbb action = new PopPbb();
+        final org.opendaylight.objectiveflow.api.Action action = new PopPbb();
 
         final Action build = action.build(10);
         assertEquals(10, build.getKey().getOrder().intValue());
@@ -108,7 +108,7 @@ public class ActionsTest {
 
     @Test
     public void testPopVlan() throws Exception {
-        final PopVlan action = new PopVlan();
+        final org.opendaylight.objectiveflow.api.Action action = new PopVlan();
 
         final Action build = action.build(10);
         assertEquals(10, build.getKey().getOrder().intValue());
@@ -118,7 +118,7 @@ public class ActionsTest {
 
     @Test
     public void testPushMpls() throws Exception {
-        PushMpls action = new PushMpls();
+        org.opendaylight.objectiveflow.api.Action action = new PushMpls();
 
         Action build = action.build(11);
         final PushMplsActionCase actionCase = (PushMplsActionCase) build.getAction();
@@ -127,7 +127,7 @@ public class ActionsTest {
 
     @Test
     public void testPushPbb() throws Exception {
-        PushPbb action = new PushPbb();
+        org.opendaylight.objectiveflow.api.Action action = new PushPbb();
 
         Action build = action.build(11);
         final PushPbbActionCase actionCase = (PushPbbActionCase) build.getAction();
@@ -136,7 +136,7 @@ public class ActionsTest {
 
     @Test
     public void testPushVlan() throws Exception {
-        PushVlan action = new PushVlan();
+        org.opendaylight.objectiveflow.api.Action action = new PushVlan();
 
         Action build = action.build(11);
         final PushVlanActionCase actionCase = (PushVlanActionCase) build.getAction();
@@ -145,7 +145,7 @@ public class ActionsTest {
 
     @Test
     public void testSetEthernetDestination() throws Exception {
-        final SetEthernetDestination action = new SetEthernetDestination("00:00:ff:ee:cc:00");
+        final org.opendaylight.objectiveflow.api.Action action = new SetEthernetDestination("00:00:ff:ee:cc:00");
         Action build = action.build(0);
         final SetFieldCase actionCase = (SetFieldCase) build.getAction();
         assertEquals("00:00:ff:ee:cc:00", actionCase.getSetField().getEthernetMatch().getEthernetDestination().getAddress().getValue());
@@ -153,7 +153,7 @@ public class ActionsTest {
 
     @Test
     public void testSetIpv4Destination() throws Exception {
-        final SetIpv4Destination action = new SetIpv4Destination(new CidrNotation("192.168.1.10", (short) 16));
+        final org.opendaylight.objectiveflow.api.Action action = new SetIpv4Destination(new CidrNotation("192.168.1.10", (short) 16));
         Action build = action.build(0);
         final SetFieldCase actionCase = (SetFieldCase) build.getAction();
         final Ipv4Match match = (Ipv4Match) actionCase.getSetField().getLayer3Match();
@@ -162,7 +162,7 @@ public class ActionsTest {
 
     @Test
     public void testSetIpv4Source() throws Exception {
-        final SetIpv4Source action = new SetIpv4Source(new CidrNotation("192.255.255.255", (short) 16));
+        final org.opendaylight.objectiveflow.api.Action action = new SetIpv4Source(new CidrNotation("192.255.255.255", (short) 16));
         Action build = action.build(0);
         final SetFieldCase actionCase = (SetFieldCase) build.getAction();
         final Ipv4Match match = (Ipv4Match) actionCase.getSetField().getLayer3Match();
