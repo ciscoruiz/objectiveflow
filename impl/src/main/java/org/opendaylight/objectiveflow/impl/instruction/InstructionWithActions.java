@@ -16,10 +16,10 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.InstructionBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.InstructionKey;
 
-public abstract class AbstractInstruction implements org.opendaylight.objectiveflow.api.Instruction {
+public abstract class InstructionWithActions implements org.opendaylight.objectiveflow.api.Instruction {
     private ArrayList<org.opendaylight.objectiveflow.api.Action> actions;
 
-    AbstractInstruction() {
+    InstructionWithActions() {
         actions = new ArrayList<>();
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractInstruction implements org.opendaylight.objectivef
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("AbstractInstruction{");
+        final StringBuffer sb = new StringBuffer("InstructionWithActions{");
         sb.append("actions=").append(actions);
         sb.append('}');
         return sb.toString();

@@ -14,7 +14,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.instruction.ApplyActionsCaseBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.instruction.apply.actions._case.ApplyActionsBuilder;
 
-public class ApplyActions extends AbstractInstruction {
+public class ApplyActions extends InstructionWithActions {
     @Override
     Instruction createInstruction(ArrayList<Action> actions) {
         return new ApplyActionsCaseBuilder().setApplyActions(new ApplyActionsBuilder().setAction(actions).build()).build();

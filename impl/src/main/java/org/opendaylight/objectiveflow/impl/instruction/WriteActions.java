@@ -15,7 +15,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 
 import java.util.ArrayList;
 
-public class WriteActions extends AbstractInstruction {
+public class WriteActions extends InstructionWithActions {
     @Override
     Instruction createInstruction(ArrayList<Action> actions) {
         return new WriteActionsCaseBuilder().setWriteActions(new WriteActionsBuilder().setAction(actions).build()).build();

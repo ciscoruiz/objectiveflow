@@ -16,7 +16,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-public class WriteMetadata extends AbstractInstruction {
+public class WriteMetadata extends InstructionWithoutActions {
     private BigInteger metadata;
     private BigInteger mask;
 
@@ -26,7 +26,7 @@ public class WriteMetadata extends AbstractInstruction {
     }
 
     @Override
-    Instruction createInstruction(ArrayList<Action> actions) {
+    Instruction createInstruction() {
         return new WriteMetadataCaseBuilder().setWriteMetadata(new WriteMetadataBuilder().setMetadata(metadata).setMetadataMask(mask).build()).build();
     }
 

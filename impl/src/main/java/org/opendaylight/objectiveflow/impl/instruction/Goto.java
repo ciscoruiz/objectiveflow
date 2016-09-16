@@ -16,7 +16,7 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 
 import java.util.ArrayList;
 
-public class Goto extends AbstractInstruction{
+public class Goto extends InstructionWithoutActions {
     private Table table;
 
     public Goto(Table table) {
@@ -24,7 +24,7 @@ public class Goto extends AbstractInstruction{
     }
 
     @Override
-    Instruction createInstruction(ArrayList<Action> actions) {
+    Instruction createInstruction() {
         return new GoToTableCaseBuilder().setGoToTable(new GoToTableBuilder().setTableId(table.getId()).build()).build();
     }
 

@@ -55,7 +55,5 @@ public class BucketTest {
     @Before
     public void setUp() throws Exception {
         bucket = new Bucket();
-
-
     }
 }

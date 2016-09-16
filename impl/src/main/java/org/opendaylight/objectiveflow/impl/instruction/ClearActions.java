@@ -14,9 +14,9 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instru
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.instruction.ClearActionsCaseBuilder;
 
 
-public class ClearActions extends AbstractInstruction{
+public class ClearActions extends InstructionWithoutActions {
     @Override
-    Instruction createInstruction(ArrayList<Action> actions) {
+    Instruction createInstruction() {
         return new ClearActionsCaseBuilder().build();
     }
 
