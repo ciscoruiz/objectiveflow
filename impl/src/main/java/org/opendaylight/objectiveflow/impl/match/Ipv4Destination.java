@@ -27,4 +27,12 @@ public  class Ipv4Destination implements Match {
         builder.setIpv4Destination(new Ipv4Prefix(cidrNotation.getIpv4Address()));
         matchBuilder.setLayer3Match(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Ipv4Destination{");
+        sb.append("cidrNotation=").append(cidrNotation);
+        sb.append('}');
+        return sb.toString();
+    }
 }

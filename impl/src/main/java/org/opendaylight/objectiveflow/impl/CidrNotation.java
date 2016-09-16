@@ -78,4 +78,13 @@ public class CidrNotation {
         sb.append('/').append(mask);
         return sb.toString();
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("CidrNotation{");
+        sb.append("ipPrefix=").append(ipPrefix);
+        sb.append(", mask=").append(mask);
+        sb.append('}');
+        return sb.toString();
+    }
 }

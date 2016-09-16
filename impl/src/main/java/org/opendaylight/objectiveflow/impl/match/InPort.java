@@ -28,4 +28,13 @@ public class InPort implements Match {
         StringBuffer nodeConnectorId = new StringBuffer().append("openflow:").append(fromPort).append(':').append(toPort);
         matchBuilder.setInPort(new NodeConnectorId(nodeConnectorId.toString()));
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("InPort{");
+        sb.append("fromPort=").append(fromPort);
+        sb.append(", toPort=").append(toPort);
+        sb.append('}');
+        return sb.toString();
+    }
 }

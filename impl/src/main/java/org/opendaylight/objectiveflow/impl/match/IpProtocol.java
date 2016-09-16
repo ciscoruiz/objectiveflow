@@ -26,4 +26,12 @@ public class IpProtocol implements Match {
         builder.setIpProtocol(protocolType.getValue());
         matchBuilder.setIpMatch(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("IpProtocol{");
+        sb.append("protocolType=").append(protocolType);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -26,4 +26,12 @@ public class MplsLabel implements Match {
         builder.setMplsLabel(label);
         matchBuilder.setProtocolMatchFields(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("MplsLabel{");
+        sb.append("label=").append(label);
+        sb.append('}');
+        return sb.toString();
+    }
 }

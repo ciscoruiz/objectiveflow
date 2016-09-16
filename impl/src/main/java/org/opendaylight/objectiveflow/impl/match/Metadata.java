@@ -29,4 +29,13 @@ public class Metadata implements Match {
         builder.setMetadata(value).setMetadataMask(mask);
         matchBuilder.setMetadata(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Metadata{");
+        sb.append("metadata=").append(value);
+        sb.append(", mask=").append(String.format("0x%x", mask));
+        sb.append('}');
+        return sb.toString();
+    }
 }

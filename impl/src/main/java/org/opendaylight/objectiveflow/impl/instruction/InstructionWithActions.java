@@ -15,8 +15,12 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.acti
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.Instruction;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.InstructionBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.InstructionKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class InstructionWithActions implements org.opendaylight.objectiveflow.api.Instruction {
+    private static final Logger LOG = LoggerFactory.getLogger(InstructionWithActions.class);
+
     private ArrayList<org.opendaylight.objectiveflow.api.Action> actions;
 
     InstructionWithActions() {
@@ -35,6 +39,7 @@ public abstract class InstructionWithActions implements org.opendaylight.objecti
         int actionKey = 0;
         ArrayList<Action> rawActions = new ArrayList<>();
         for (org.opendaylight.objectiveflow.api.Action action: actions) {
+            LOG.debug("Action=" + action.toString());
             rawActions.add(action.build(actionKey++));
         }
         

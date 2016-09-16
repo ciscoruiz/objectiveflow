@@ -27,4 +27,12 @@ public class ArpSourceTransportAddress implements Match {
         builder.setArpSourceTransportAddress(new Ipv4Prefix(cidrNotation.getIpv4Address()));
         matchBuilder.setLayer3Match(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("ArpSourceTransportAddress{");
+        sb.append("cidrNotation=").append(cidrNotation);
+        sb.append('}');
+        return sb.toString();
+    }
 }

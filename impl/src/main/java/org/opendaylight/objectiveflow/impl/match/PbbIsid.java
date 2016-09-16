@@ -27,4 +27,12 @@ public class PbbIsid implements Match {
         builder.setPbb(new PbbBuilder().setPbbIsid(label).build());
         matchBuilder.setProtocolMatchFields(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("PbbIsid{");
+        sb.append("label=").append(label);
+        sb.append('}');
+        return sb.toString();
+    }
 }

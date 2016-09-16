@@ -13,11 +13,15 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.Group
 import org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.group.BucketsBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.groups.GroupBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.groups.GroupKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Group implements org.opendaylight.objectiveflow.api.Group {
+    private static final Logger LOG = LoggerFactory.getLogger(Group.class);
+
     private String name;
     private int id;
     private org.opendaylight.objectiveflow.api.Group.Type type;
@@ -53,9 +57,12 @@ public class Group implements org.opendaylight.objectiveflow.api.Group {
         GroupBuilder builder = new GroupBuilder();
         builder.setKey(new GroupKey(new GroupId((long) id))).setGroupType(GroupTypes.forValue(type.getValue())).setGroupName(name);
 
+        LOG.debug("Group=" + toString());
+
         List<org.opendaylight.yang.gen.v1.urn.opendaylight.group.types.rev131018.group.buckets.Bucket> ofBuckets = new ArrayList<>();
         int key = 0;
         for (Bucket bucket : buckets) {
+            LOG.debug("Bucket=" + bucket.toString());
             ofBuckets.add(bucket.build(key ++));
         }
         builder.setBuckets(new BucketsBuilder().setBucket(ofBuckets).build());

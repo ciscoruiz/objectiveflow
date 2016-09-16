@@ -45,6 +45,9 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.10.19" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.yangtools:yang-common:1.1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.yangtools:concepts:1.1.0-SNAPSHOT" level="project" />
@@ -84,7 +87,6 @@
     <orderEntry type="library" name="Maven: org.opendaylight.yangtools:yang-parser-api:1.1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.mdsal:mdsal-binding-generator-api:0.10.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.opendaylight.mdsal.model:ietf-yang-types-20130715:2013.07.15.10-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.findbugs:jsr305:3.0.0" level="project" />
   </component>
 </module>

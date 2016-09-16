@@ -25,4 +25,12 @@ public class ArpOp implements Match {
         builder.setArpOp(operation);
         matchBuilder.setLayer3Match(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("ArpOp{");
+        sb.append("operation=").append(operation);
+        sb.append('}');
+        return sb.toString();
+    }
 }

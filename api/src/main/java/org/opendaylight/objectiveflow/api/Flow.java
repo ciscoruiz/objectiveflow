@@ -152,6 +152,24 @@ public abstract class Flow {
     }
 
     public abstract org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.Flow build();
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Flow{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append(", table=").append(table);
+        sb.append(", priority=").append(priority);
+        sb.append(", idleTimeout=").append(idleTimeout);
+        sb.append(", hardTimeout=").append(hardTimeout);
+        sb.append(", cookie=").append(cookie);
+        sb.append(", #matches=").append(matches.size());
+        sb.append(", #instructions=").append(instructions.size());
+        sb.append(", #counters=").append(counters.size());
+        sb.append(", flags=").append(flags);
+        sb.append('}');
+        return sb.toString();
+    }
 }
 
 

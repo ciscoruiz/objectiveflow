@@ -34,7 +34,7 @@ public class WriteMetadata extends InstructionWithoutActions {
     public String toString() {
         final StringBuffer sb = new StringBuffer("WriteMetadata{");
         sb.append("metadata=").append(metadata);
-        sb.append(", mask=").append(mask);
+        sb.append(", mask=").append(String.format("0x%x", mask));
         sb.append('}');
         return sb.toString();
     }

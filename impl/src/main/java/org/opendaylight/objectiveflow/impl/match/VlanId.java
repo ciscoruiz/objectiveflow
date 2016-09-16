@@ -33,4 +33,12 @@ public class VlanId implements Match {
         vlanIdBuilder.setVlanIdPresent(value != 0);
         return vlanIdBuilder.build();
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("VlanId{");
+        sb.append("value=").append(value);
+        sb.append('}');
+        return sb.toString();
+    }
 }

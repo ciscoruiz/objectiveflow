@@ -26,4 +26,12 @@ public class UdpDestinationPort implements Match {
         builder.setUdpDestinationPort(new PortNumber(portNumber));
         matchBuilder.setLayer4Match(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("UdpDestinationPort{");
+        sb.append("portNumber=").append(portNumber);
+        sb.append('}');
+        return sb.toString();
+    }
 }

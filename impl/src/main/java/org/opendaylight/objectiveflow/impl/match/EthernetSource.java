@@ -26,5 +26,13 @@ public class EthernetSource implements Match {
         builder.setEthernetSource(new EthernetSourceBuilder().setAddress(new MacAddress(macAddress)).build());
         matchBuilder.setEthernetMatch(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("EthernetSource{");
+        sb.append("macAddress='").append(macAddress).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
 

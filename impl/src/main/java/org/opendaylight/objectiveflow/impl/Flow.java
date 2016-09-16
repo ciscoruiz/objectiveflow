@@ -17,10 +17,14 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.FlowMo
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.instruction.list.Instruction;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.InstructionsBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.MatchBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class Flow extends org.opendaylight.objectiveflow.api.Flow {
+    private static final Logger LOG = LoggerFactory.getLogger(Flow.class);
+
     public Flow(String name, org.opendaylight.objectiveflow.api.Table table) {
         super(name, table);
     }
@@ -40,6 +44,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setHardTimeout(getHardTimeout());
         builder.setCookie(new FlowCookie(getCookie()));
 
+        LOG.debug("Flow=" + toString());
         setMatches(builder);
         setInstructions(builder);
         setFlags(builder);
@@ -57,6 +62,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
     private void setMatches(FlowBuilder builder) {
         final MatchBuilder matchBuilder = new MatchBuilder();
         for (Match match : getMatches()) {
+            LOG.debug("Match=" + match.toString());
             match.setup(matchBuilder);
         }
         builder.setMatch(matchBuilder.build());
@@ -67,6 +73,7 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         ArrayList<Instruction> odlInstructions = new ArrayList<>();
         int key = 0;
         for (org.opendaylight.objectiveflow.api.Instruction instruction : getInstructions()) {
+            LOG.debug("Instruction=" + instruction.toString());
             final Instruction odlInstruction = instruction.build(key++);
             odlInstructions.add(odlInstruction);
         }

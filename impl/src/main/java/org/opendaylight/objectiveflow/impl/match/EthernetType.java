@@ -27,4 +27,12 @@ public class EthernetType implements Match {
         builder.setEthernetType(new EthernetTypeBuilder().setType(new EtherType((long) ethernetType.getValue())).build());
         matchBuilder.setEthernetMatch(builder.build());
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("EthernetType{");
+        sb.append("ethernetType=").append(ethernetType);
+        sb.append('}');
+        return sb.toString();
+    }
 }
