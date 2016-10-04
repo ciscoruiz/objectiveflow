@@ -92,7 +92,7 @@ public class Bucket implements org.opendaylight.objectiveflow.api.Bucket {
         sb.append("weight=").append(weight);
         sb.append(", watchPort=").append(watchPort);
         sb.append(", watchGroup=").append(watchGroup);
-        sb.append(", #actions=").append(actions.size());
+        sb.append(", actions=").append(actions);
         sb.append('}');
         return sb.toString();
     }
