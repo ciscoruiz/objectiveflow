@@ -9,6 +9,7 @@
 package org.opendaylight.objectiveflow.impl;
 
 import org.opendaylight.objectiveflow.api.*;
+import org.opendaylight.objectiveflow.api.Table;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.FlowId;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.FlowBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.FlowKey;
@@ -20,13 +21,36 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.M
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
 
-public class Flow extends org.opendaylight.objectiveflow.api.Flow {
+public class Flow implements org.opendaylight.objectiveflow.api.Flow {
     private static final Logger LOG = LoggerFactory.getLogger(Flow.class);
 
+    private String name;
+    private String id;
+    private Table table;
+    private int priority;
+    private int idleTimeout;
+    private int hardTimeout;
+    private BigInteger cookie;
+    private ArrayList<Match> matches;
+    private ArrayList<org.opendaylight.objectiveflow.api.Instruction> instructions;
+    private ArrayList<Counter> counters;
+    private BitSet flags;
+
     public Flow(String name, org.opendaylight.objectiveflow.api.Table table) {
-        super(name, table);
+        this.name = name;
+        this.table = table;
+        this.cookie = BigInteger.valueOf(0);
+        this.matches = new ArrayList<>();
+        this.instructions = new ArrayList<>();
+        this.counters = new ArrayList<>();
+        this.flags = new BitSet();
+        turnOff(Flag.IsBarrier);
+        turnOn(Flag.InstallHardware);
     }
 
     @Override
@@ -50,6 +74,98 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         setFlags(builder);
 
         return builder.build();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow setPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    public int getIdleTimeout() {
+        return idleTimeout;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow setIdleTimeout(int idleTimeout) {
+        this.idleTimeout = idleTimeout;
+        return this;
+    }
+
+    public int getHardTimeout() {
+        return hardTimeout;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow setHardTimeout(int hardTimeout) {
+        this.hardTimeout = hardTimeout;
+        return this;
+    }
+
+    public BigInteger getCookie() {
+        return cookie;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow setCookie(BigInteger cookie) {
+        this.cookie = cookie;
+        return this;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow addMatch(Match match) {
+        matches.add(match);
+        return this;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow addInstruction(org.opendaylight.objectiveflow.api.Instruction instruction) {
+        instructions.add(instruction);
+        return this;
+    }
+
+    public org.opendaylight.objectiveflow.api.Flow addCounter(Counter counter) {
+        counters.add(counter);
+        return this;
+    }
+
+    public void turnOn(Flag flag) {
+        flags.set(flag.getNbit(), true);
+    }
+
+    public void turnOff(Flag flag) {
+        flags.set(flag.getNbit(), false);
+    }
+
+    public boolean getFlag(Flag flag) {
+        return flags.get(flag.getNbit());
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public List<org.opendaylight.objectiveflow.api.Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public List<Counter> getCounters() {
+        return counters;
     }
 
     private void checkArgument(String whatIs, Object object) {
@@ -86,6 +202,24 @@ public class Flow extends org.opendaylight.objectiveflow.api.Flow {
         builder.setBarrier(getFlag(Flag.IsBarrier));
         final FlowModFlags modFlags = new FlowModFlags(getFlag(Flag.CheckOverlap), getFlag(Flag.NoBytsCounts), getFlag(Flag.NopktCounts), getFlag(Flag.ResetCounts), getFlag(Flag.SendFlowRem));
         builder.setFlags(modFlags);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Flow{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append(", table=").append(table);
+        sb.append(", priority=").append(priority);
+        sb.append(", idleTimeout=").append(idleTimeout);
+        sb.append(", hardTimeout=").append(hardTimeout);
+        sb.append(", cookie=").append(cookie);
+        sb.append(", matches=").append(matches);
+        sb.append(", instructions=").append(instructions);
+        sb.append(", counters=").append(counters);
+        sb.append(", flags=").append(flags);
+        sb.append('}');
+        return sb.toString();
     }
 }
 

@@ -32,17 +32,17 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <dependency>
       <groupId>org.opendaylight.openflowplugin.model</groupId>
       <artifactId>model-flow-base</artifactId>
-      <version>0.2.2-SNAPSHOT</version>
+      <version>0.2.4-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.opendaylight.openflowplugin.model</groupId>
       <artifactId>model-flow-service</artifactId>
-      <version>0.2.2-SNAPSHOT</version>
+      <version>0.2.4-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.opendaylight.openflowplugin</groupId>
       <artifactId>openflowplugin-extension-nicira</artifactId>
-      <version>0.2.2-SNAPSHOT</version>
+      <version>0.2.4-SNAPSHOT</version>
     </dependency>
 
     <!-- Testing Dependencies -->

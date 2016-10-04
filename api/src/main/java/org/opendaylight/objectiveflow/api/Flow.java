@@ -7,24 +7,10 @@
  */
 package org.opendaylight.objectiveflow.api;
 
-import java.util.BitSet;
-import java.util.ArrayList;
 import java.math.BigInteger;
 import java.util.List;
 
-public abstract class Flow {
-    private String name;
-    private String id;
-    private Table table;
-    private int priority;
-    private int idleTimeout;
-    private int hardTimeout;
-    private BigInteger cookie;
-    private ArrayList<Match> matches;
-    private ArrayList<Instruction> instructions;
-    private ArrayList<Counter> counters;
-    private BitSet flags;
-
+public interface  Flow {
     public enum Flag {
         IsStrict(0),
         IsBarrier(1),
@@ -47,129 +33,49 @@ public abstract class Flow {
         }
     }
 
-    public Flow(String name, Table table) {
-        this.name = name;
-        this.table = table;
-        this.cookie = BigInteger.valueOf(0);
-        this.matches = new ArrayList<>();
-        this.instructions = new ArrayList<>();
-        this.counters = new ArrayList<>();
-        this.flags = new BitSet();
-        turnOff(Flag.IsBarrier);
-        turnOn(Flag.InstallHardware);
-    }
+    public String getName();
 
-    public String getName() {
-        return name;
-    }
+    public Table getTable();
 
-    public String getId() {
-        return id;
-    }
+    public String getId();
 
-    public Flow setId(String id) {
-        this.id = id;
-        return this;
-    }
+    public Flow setId(String id);
 
-    public Table getTable() {
-        return table;
-    }
+    public int getPriority();
 
-    public int getPriority() {
-        return priority;
-    }
+    public Flow setPriority(int priority);
 
-    public Flow setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
+    public int getIdleTimeout();
 
-    public int getIdleTimeout() {
-        return idleTimeout;
-    }
+    public Flow setIdleTimeout(int idleTimeout);
 
-    public Flow setIdleTimeout(int idleTimeout) {
-        this.idleTimeout = idleTimeout;
-        return this;
-    }
+    public int getHardTimeout();
 
-    public int getHardTimeout() {
-        return hardTimeout;
-    }
+    public Flow setHardTimeout(int hardTimeout);
 
-    public Flow setHardTimeout(int hardTimeout) {
-        this.hardTimeout = hardTimeout;
-        return this;
-    }
+    public BigInteger getCookie();
 
-    public BigInteger getCookie() {
-        return cookie;
-    }
+    public Flow setCookie(BigInteger cookie);
 
-    public Flow setCookie(BigInteger cookie) {
-        this.cookie = cookie;
-        return this;
-    }
+    public Flow addMatch(Match match);
 
-    public Flow addMatch(Match match) {
-        matches.add(match);
-        return this;
-    }
+    public Flow addInstruction(Instruction instruction);
 
-    public Flow addInstruction(Instruction instruction) {
-        instructions.add(instruction);
-        return this;
-    }
+    public Flow addCounter(Counter counter);
 
-    public Flow addCounter(Counter counter) {
-        counters.add(counter);
-        return this;
-    }
+    public void turnOn(Flag flag);
 
-    public void turnOn(Flag flag) {
-        flags.set(flag.getNbit(), true);
-    }
+    public void turnOff(Flag flag);
 
-    public void turnOff(Flag flag) {
-        flags.set(flag.getNbit(), false);
-    }
+    public boolean getFlag(Flag flag);
 
-    public boolean getFlag(Flag flag) {
-        return flags.get(flag.getNbit());
-    }
+    public List<Match> getMatches();
 
-    public List<Match> getMatches() {
-        return matches;
-    }
+    public List<Instruction> getInstructions();
 
-    public List<Instruction> getInstructions() {
-        return instructions;
-    }
+    public List<Counter> getCounters();
 
-    public List<Counter> getCounters() {
-        return counters;
-    }
-
-    public abstract org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.Flow build();
-
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Flow{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", id='").append(id).append('\'');
-        sb.append(", table=").append(table);
-        sb.append(", priority=").append(priority);
-        sb.append(", idleTimeout=").append(idleTimeout);
-        sb.append(", hardTimeout=").append(hardTimeout);
-        sb.append(", cookie=").append(cookie);
-        sb.append(", #matches=").append(matches.size());
-        sb.append(", #instructions=").append(instructions.size());
-        sb.append(", #counters=").append(counters.size());
-        sb.append(", flags=").append(flags);
-        sb.append('}');
-        return sb.toString();
-    }
+    public org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.Flow build();
 }
 
 
